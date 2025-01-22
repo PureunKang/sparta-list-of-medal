@@ -14,6 +14,7 @@ const MedalInputForm = () => {
       alert("국가명을 입력해 주세요.");
       return;
     }
+
     if (gold < 0 || silver < 0 || bronze < 0) {
       alert("메달 수는 0개 미만이 될 수 없습니다.");
       return;
@@ -38,41 +39,52 @@ const MedalInputForm = () => {
 
   return (
     <>
-      <div className="form-control w-[80%] flex flex-row gap-2">
-        <input
-          type="text"
-          value={nation}
-          placeholder="국가명"
-          className="input input-bordered max-w-xs"
-          onChange={(e) => {
-            setNation(e.target.value);
-          }}
-        />
-        <input
-          type="number"
-          value={gold}
-          placeholder="금메달"
-          className="input input-bordered max-w-xs"
-          onChange={(e) => setGold(Number(e.target.value))}
-        />
-        <input
-          type="number"
-          value={silver}
-          placeholder="은메달"
-          className="input input-bordered max-w-xs"
-          onChange={(e) => setSilver(Number(e.target.value))}
-        />
-        <input
-          type="number"
-          value={bronze}
-          placeholder="동메달"
-          className="input input-bordered max-w-xs"
-          onChange={(e) => setBronze(Number(e.target.value))}
-        />
-        <button onClick={addNationHandler} className="btn btn-neutral">
+      <div className="flex justify-center w-[90%] m-auto gap-2">
+        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+          <input
+            type="text"
+            value={nation}
+            placeholder="국가명"
+            className="grow text-sm"
+            onChange={(e) => {
+              setNation(e.target.value);
+            }}
+          />
+        </label>
+        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+          금
+          <input
+            type="number"
+            value={gold}
+            className="grow text-sm"
+            onChange={(e) => setGold(Number(e.target.value))}
+          />
+        </label>
+        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+          은
+          <input
+            type="number"
+            value={silver}
+            className="grow text-sm"
+            onChange={(e) => setSilver(Number(e.target.value))}
+          />
+        </label>
+        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+          동
+          <input
+            type="number"
+            value={bronze}
+            className="grow text-sm"
+            onChange={(e) => setBronze(Number(e.target.value))}
+          />
+        </label>
+        <button
+          onClick={addNationHandler}
+          className="text-xs w-20 h-8 btn btn-neutral"
+        >
           국가 추가
         </button>
-        <button className="btn btn-neutral">업데이트</button>
+        <button className="text-xs w-20 h-8 btn btn-neutral">업데이트</button>
       </div>
       <MedalList nations={nations} onRemoveTheCount={removeTheCountHandler} />
     </>

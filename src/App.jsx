@@ -4,7 +4,9 @@ function App() {
   return (
     <>
       <header>
-        <h1 className="font-extrabold">Olympic Medal Count</h1>
+        <h1 className="text-2xl pt-20 text-center h-60 font-extrabold">
+          Olympic Medal Count
+        </h1>
       </header>
       <main>
         <MedalInputForm />
