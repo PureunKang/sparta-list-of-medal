@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MedalList from "./MedalList";
 
 const MedalInputForm = () => {
   const [nations, setNations] = useState([]);
@@ -32,42 +33,45 @@ const MedalInputForm = () => {
   };
 
   return (
-    <div className="form-control w-[80%] flex flex-row gap-2">
-      <input
-        type="text"
-        value={nation}
-        placeholder="국가명"
-        className="input input-bordered max-w-xs"
-        onChange={(e) => {
-          setNation(e.target.value);
-        }}
-      />
-      <input
-        type="number"
-        value={gold}
-        placeholder="금메달"
-        className="input input-bordered max-w-xs"
-        onChange={(e) => setGold(Number(e.target.value))}
-      />
-      <input
-        type="number"
-        value={silver}
-        placeholder="은메달"
-        className="input input-bordered max-w-xs"
-        onChange={(e) => setSilver(Number(e.target.value))}
-      />
-      <input
-        type="number"
-        value={bronze}
-        placeholder="동메달"
-        className="input input-bordered max-w-xs"
-        onChange={(e) => setBronze(Number(e.target.value))}
-      />
-      <button onClick={addNationHandler} className="btn btn-neutral">
-        국가 추가
-      </button>
-      <button className="btn btn-neutral">업데이트</button>
-    </div>
+    <>
+      <div className="form-control w-[80%] flex flex-row gap-2">
+        <input
+          type="text"
+          value={nation}
+          placeholder="국가명"
+          className="input input-bordered max-w-xs"
+          onChange={(e) => {
+            setNation(e.target.value);
+          }}
+        />
+        <input
+          type="number"
+          value={gold}
+          placeholder="금메달"
+          className="input input-bordered max-w-xs"
+          onChange={(e) => setGold(Number(e.target.value))}
+        />
+        <input
+          type="number"
+          value={silver}
+          placeholder="은메달"
+          className="input input-bordered max-w-xs"
+          onChange={(e) => setSilver(Number(e.target.value))}
+        />
+        <input
+          type="number"
+          value={bronze}
+          placeholder="동메달"
+          className="input input-bordered max-w-xs"
+          onChange={(e) => setBronze(Number(e.target.value))}
+        />
+        <button onClick={addNationHandler} className="btn btn-neutral">
+          국가 추가
+        </button>
+        <button className="btn btn-neutral">업데이트</button>
+      </div>
+      <MedalList nations={nations} />
+    </>
   );
 };
 
