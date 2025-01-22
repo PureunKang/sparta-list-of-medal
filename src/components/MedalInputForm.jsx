@@ -32,6 +32,10 @@ const MedalInputForm = () => {
     setBronze(0);
   };
 
+  const removeTheCountHandler = (id) => {
+    setNations((prevNations) => prevNations.filter((n) => n.id !== id));
+  };
+
   return (
     <>
       <div className="form-control w-[80%] flex flex-row gap-2">
@@ -70,7 +74,7 @@ const MedalInputForm = () => {
         </button>
         <button className="btn btn-neutral">업데이트</button>
       </div>
-      <MedalList nations={nations} />
+      <MedalList nations={nations} onRemoveTheCount={removeTheCountHandler} />
     </>
   );
 };

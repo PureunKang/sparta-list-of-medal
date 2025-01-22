@@ -1,6 +1,6 @@
 import React from "react";
 
-const MedalList = ({ nations }) => {
+const MedalList = ({ nations, onRemoveTheCount }) => {
   return (
     <div className="w-[80%] overflow-x-auto">
       <table className="table table-xs table-pin-rows table-pin-cols">
@@ -26,7 +26,7 @@ const MedalList = ({ nations }) => {
               <td>{n.bronze}</td>
               <td>{n.gold + n.silver + n.bronze}</td>
               <td>
-                <button>삭제</button>
+                <button onClick={() => onRemoveTheCount(n.id)}>삭제</button>
               </td>
               <th>{idx + 1}</th>
             </tr>
