@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MedalList from "./MedalList";
 
 const MedalInputForm = () => {
-  const [nations, setNations] = useState([]);
+  const [nations, setNations] = useState(() => {
+    const browserValue = localStorage.getItem("MEDAL");
+    if (!browserValue) return [];
+    else return JSON.parse(browserValue);
+  });
 
   const [nation, setNation] = useState("");
   const [gold, setGold] = useState(0);
   const [silver, setSilver] = useState(0);
   const [bronze, setBronze] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem("MEDAL", JSON.stringify(nations));
+  }, [nations]);
 
   const addNationHandler = () => {
     if (!nation.trim()) {
@@ -17,6 +25,13 @@ const MedalInputForm = () => {
 
     if (gold < 0 || silver < 0 || bronze < 0) {
       alert("메달 수는 0개 미만이 될 수 없습니다.");
+      return;
+    }
+
+    const isNationExisted = nations.some((n) => n.nation === nation);
+
+    if (isNationExisted) {
+      alert("해당 국가의 기록이 존재합니다. '업데이트'로 진행해 주세요.");
       return;
     }
     const newNation = {
