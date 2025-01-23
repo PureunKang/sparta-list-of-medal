@@ -37,6 +37,43 @@ const MedalInputForm = () => {
     setNations((prevNations) => prevNations.filter((n) => n.id !== id));
   };
 
+  const updateCountHandler = () => {
+    if (!nation.trim()) {
+      alert("국가명을 입력해 주세요.");
+      return;
+    }
+
+    if (gold < 0 || silver < 0 || bronze < 0) {
+      alert("메달 수는 0개 미만이 될 수 없습니다.");
+      return;
+    }
+
+    const nationExists = nations.some((n) => n.nation === nation);
+
+    if (!nationExists) {
+      alert("해당 국가의 기록이 존재하지 않습니다. '국가 추가'부터 해 주세요.");
+      return;
+    }
+
+    setNations((prevNations) =>
+      prevNations.map((n) =>
+        n.nation === nation
+          ? {
+              ...n,
+              gold: Number(gold),
+              silver: Number(silver),
+              bronze: Number(bronze),
+            }
+          : n
+      )
+    );
+
+    setNation("");
+    setGold(0);
+    setSilver(0);
+    setBronze(0);
+  };
+
   return (
     <>
       <div className="flex justify-center w-[90%] m-auto gap-2">
@@ -84,7 +121,12 @@ const MedalInputForm = () => {
         >
           국가 추가
         </button>
-        <button className="text-xs w-20 h-8 btn btn-neutral">업데이트</button>
+        <button
+          onClick={updateCountHandler}
+          className="text-xs w-20 h-8 btn btn-neutral"
+        >
+          업데이트
+        </button>
       </div>
       <MedalList nations={nations} onRemoveTheCount={removeTheCountHandler} />
     </>
