@@ -29,7 +29,12 @@ const MedalList = ({ nations, onRemoveTheCount }) => {
                 <td>{n.bronze}</td>
                 <td>{n.gold + n.silver + n.bronze}</td>
                 <td>
-                  <button onClick={() => onRemoveTheCount(n.id)}>삭제</button>
+                  <button
+                    className="btn btn-sm"
+                    onClick={() => onRemoveTheCount(n.id)}
+                  >
+                    삭제
+                  </button>
                 </td>
                 <th>{idx + 1}</th>
               </tr>

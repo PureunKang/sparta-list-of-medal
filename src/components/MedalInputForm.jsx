@@ -17,6 +17,10 @@ const MedalInputForm = () => {
     localStorage.setItem("MEDAL", JSON.stringify(nations));
   }, [nations]);
 
+  const sortNations = (n) => {
+    return n.sort((a, b) => b.gold - a.gold);
+  };
+
   const addNationHandler = () => {
     if (!nation.trim()) {
       alert("국가명을 입력해 주세요.");
@@ -41,7 +45,10 @@ const MedalInputForm = () => {
       silver: Number(silver),
       bronze: Number(bronze),
     };
-    setNations([...nations, newNation]);
+
+    const updatedNations = sortNations([...nations, newNation]);
+    setNations(updatedNations);
+
     setNation("");
     setGold(0);
     setSilver(0);
@@ -49,7 +56,8 @@ const MedalInputForm = () => {
   };
 
   const removeTheCountHandler = (id) => {
-    setNations((prevNations) => prevNations.filter((n) => n.id !== id));
+    const updatedNations = sortNations(nations.filter((n) => n.id !== id));
+    setNations(updatedNations);
   };
 
   const updateCountHandler = () => {
@@ -70,8 +78,8 @@ const MedalInputForm = () => {
       return;
     }
 
-    setNations((prevNations) =>
-      prevNations.map((n) =>
+    const updatedNations = sortNations(
+      nations.map((n) =>
         n.nation === nation
           ? {
               ...n,
@@ -82,6 +90,7 @@ const MedalInputForm = () => {
           : n
       )
     );
+    setNations(updatedNations);
 
     setNation("");
     setGold(0);
