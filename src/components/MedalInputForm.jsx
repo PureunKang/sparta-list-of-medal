@@ -100,59 +100,61 @@ const MedalInputForm = () => {
 
   return (
     <>
-      <div className="flex justify-center w-[90%] m-auto gap-2">
-        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
-          <input
-            type="text"
-            value={nation}
-            placeholder="국가명"
-            className="grow text-sm"
-            onChange={(e) => {
-              setNation(e.target.value);
-            }}
-          />
-        </label>
-        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
-          금
-          <input
-            type="number"
-            value={gold}
-            className="grow text-sm"
-            onChange={(e) => setGold(Number(e.target.value))}
-          />
-        </label>
-        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
-          은
-          <input
-            type="number"
-            value={silver}
-            className="grow text-sm"
-            onChange={(e) => setSilver(Number(e.target.value))}
-          />
-        </label>
-        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
-          동
-          <input
-            type="number"
-            value={bronze}
-            className="grow text-sm"
-            onChange={(e) => setBronze(Number(e.target.value))}
-          />
-        </label>
-        <button
-          onClick={addNationHandler}
-          className="text-xs w-20 h-8 btn btn-neutral"
-        >
-          국가 추가
-        </button>
-        <button
-          onClick={updateCountHandler}
-          className="text-xs w-20 h-8 btn btn-neutral"
-        >
-          업데이트
-        </button>
-      </div>
-      <MedalList nations={nations} onRemoveTheCount={removeTheCountHandler} />
+      <main>
+        <div className="flex justify-center w-[90%] m-auto gap-2">
+          <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+            <input
+              type="text"
+              value={nation}
+              placeholder="국가명"
+              className="grow text-sm"
+              onChange={(e) => {
+                setNation(e.target.value);
+              }}
+            />
+          </label>
+          <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+            금
+            <input
+              type="number"
+              value={gold}
+              className="grow text-sm"
+              onChange={(e) => setGold(Number(e.target.value))}
+            />
+          </label>
+          <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+            은
+            <input
+              type="number"
+              value={silver}
+              className="grow text-sm"
+              onChange={(e) => setSilver(Number(e.target.value))}
+            />
+          </label>
+          <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+            동
+            <input
+              type="number"
+              value={bronze}
+              className="grow text-sm"
+              onChange={(e) => setBronze(Number(e.target.value))}
+            />
+          </label>
+          <button
+            onClick={addNationHandler}
+            className="text-xs w-20 h-8 btn btn-neutral"
+          >
+            국가 추가
+          </button>
+          <button
+            onClick={updateCountHandler}
+            className="text-xs w-20 h-8 btn btn-neutral"
+          >
+            업데이트
+          </button>
+        </div>
+        <MedalList nations={nations} onRemoveTheCount={removeTheCountHandler} />
+      </main>
     </>
   );
 };
