@@ -29,7 +29,7 @@ function App() {
 
   const handleSortChange = (newSortType) => {
     setSortType(newSortType);
-    setNations((prevNations) => sortNations([...prevNations], "gold"));
+    setNations((prevNations) => sortNations([...prevNations], newSortType));
   };
 
   const addNation = (newNation) => {

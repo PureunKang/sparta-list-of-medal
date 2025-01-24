@@ -2,15 +2,15 @@ const SortButton = ({ sortType, onSortChange }) => {
   return (
     <>
       <label className="text-xs pt-10 w-[80%] ml-auto flex cursor-pointer gap-2">
-        <span className="label-text">금메달 순</span>
+        <span className="label-text">총 메달 순</span>
         <input
           type="radio"
           name="sortType"
           className="radio h-4 w-4"
-          checked={sortType === "gold"}
+          checked={sortType === "gold"} // 로직 뒤바껴서 적용됨....
           onChange={() => onSortChange("gold")}
         />
-        <span className="label-text">총 메달 순</span>
+        <span className="label-text">금메달 순</span>
         <input
           type="radio"
           name="sortType"
