@@ -1,10 +1,6 @@
-import React from "react";
-import SortButton from "./SortButton";
-
-const MedalList = ({ nations, onRemoveTheCount }) => {
+const MedalList = ({ nations, onRemoveNation }) => {
   return (
     <>
-      <SortButton />
       <div className="pt-10 w-[80%] m-auto overflow-x-auto">
         <table className="table table-md table-pin-rows table-pin-cols text-center">
           <thead>
@@ -31,7 +27,7 @@ const MedalList = ({ nations, onRemoveTheCount }) => {
                 <td>
                   <button
                     className="btn btn-sm"
-                    onClick={() => onRemoveTheCount(n.id)}
+                    onClick={() => onRemoveNation(n.id)}
                   >
                     삭제
                   </button>

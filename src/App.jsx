@@ -3,7 +3,6 @@ import MedalInputForm from "./components/MedalInputForm";
 import Header from "./components/Header";
 import MedalList from "./components/MedalList";
 import SortButton from "./components/SortButton";
-import Footer from "./components/Footer";
 
 function App() {
   const [nations, setNations] = useState(() => {
@@ -30,7 +29,7 @@ function App() {
 
   const handleSortChange = (newSortType) => {
     setSortType(newSortType);
-    setNations((prevNations) => sortNations([...prevNations]));
+    setNations((prevNations) => sortNations([...prevNations], "gold"));
   };
 
   const addNation = (newNation) => {
@@ -41,13 +40,19 @@ function App() {
       return;
     }
 
-    const updatedNations = sortNations([...nations, newNation]);
-    setNations(updatedNations);
+    setNations((prevNations) =>
+      sortNations([...prevNations, newNation], "gold")
+    );
   };
 
   const removeNation = (id) => {
-    const updatedNations = sortNations(nations.filter((n) => n.id !== id));
-    setNations(updatedNations);
+    setNations(
+      (prevNations) =>
+        sortNations(
+          prevNations.filter((n) => n.id !== id),
+          "gold"
+        ) // 정렬 포함
+    );
   };
 
   const updateNation = (updatedNation) => {
@@ -60,12 +65,14 @@ function App() {
       return;
     }
 
-    const updatedNations = sortNations(
-      nations.map((n) =>
-        n.nation === updatedNation.nation ? { ...n, ...updatedNation } : n
+    setNations((prevNations) =>
+      sortNations(
+        prevNations.map((n) =>
+          n.nation === updatedNation.nation ? { ...n, ...updatedNation } : n
+        ),
+        "gold"
       )
     );
-    setNations(updatedNations);
   };
 
   return (
@@ -76,7 +83,6 @@ function App() {
         <SortButton sortType={sortType} onSortChange={handleSortChange} />
         <MedalList nations={nations} onRemoveNation={removeNation} />
       </main>
-      <Footer />
     </>
   );
 }

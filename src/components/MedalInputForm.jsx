@@ -1,27 +1,12 @@
-import React, { useState, useEffect } from "react";
-import MedalList from "./MedalList";
+import { useState } from "react";
 
-const MedalInputForm = () => {
-  const [nations, setNations] = useState(() => {
-    const browserValue = localStorage.getItem("MEDAL");
-    if (!browserValue) return [];
-    else return JSON.parse(browserValue);
-  });
-
+const MedalInputForm = ({ onAddNation, onUpdateNation }) => {
   const [nation, setNation] = useState("");
   const [gold, setGold] = useState(0);
   const [silver, setSilver] = useState(0);
   const [bronze, setBronze] = useState(0);
 
-  useEffect(() => {
-    localStorage.setItem("MEDAL", JSON.stringify(nations));
-  }, [nations]);
-
-  const sortNations = (n) => {
-    return n.sort((a, b) => b.gold - a.gold);
-  };
-
-  const addNationHandler = () => {
+  const addHandler = () => {
     if (!nation.trim()) {
       alert("국가명을 입력해 주세요.");
       return;
@@ -32,12 +17,6 @@ const MedalInputForm = () => {
       return;
     }
 
-    const isNationExisted = nations.some((n) => n.nation === nation);
-
-    if (isNationExisted) {
-      alert("해당 국가의 기록이 존재합니다. '업데이트'로 진행해 주세요.");
-      return;
-    }
     const newNation = {
       id: new Date().getTime(),
       nation: nation,
@@ -46,21 +25,11 @@ const MedalInputForm = () => {
       bronze: Number(bronze),
     };
 
-    const updatedNations = sortNations([...nations, newNation]);
-    setNations(updatedNations);
-
-    setNation("");
-    setGold(0);
-    setSilver(0);
-    setBronze(0);
+    onAddNation(newNation);
+    resetFields();
   };
 
-  const removeTheCountHandler = (id) => {
-    const updatedNations = sortNations(nations.filter((n) => n.id !== id));
-    setNations(updatedNations);
-  };
-
-  const updateCountHandler = () => {
+  const updateHandler = () => {
     if (!nation.trim()) {
       alert("국가명을 입력해 주세요.");
       return;
@@ -71,27 +40,18 @@ const MedalInputForm = () => {
       return;
     }
 
-    const nationExists = nations.some((n) => n.nation === nation);
+    const updatedNation = {
+      nation,
+      gold: Number(gold),
+      silver: Number(silver),
+      bronze: Number(bronze),
+    };
 
-    if (!nationExists) {
-      alert("해당 국가의 기록이 존재하지 않습니다. '국가 추가'부터 해 주세요.");
-      return;
-    }
+    onUpdateNation(updatedNation);
+    resetFields();
+  };
 
-    const updatedNations = sortNations(
-      nations.map((n) =>
-        n.nation === nation
-          ? {
-              ...n,
-              gold: Number(gold),
-              silver: Number(silver),
-              bronze: Number(bronze),
-            }
-          : n
-      )
-    );
-    setNations(updatedNations);
-
+  const resetFields = () => {
     setNation("");
     setGold(0);
     setSilver(0);
@@ -100,61 +60,58 @@ const MedalInputForm = () => {
 
   return (
     <>
-      <main>
-        <div className="flex justify-center w-[90%] m-auto gap-2">
-          <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
-            <input
-              type="text"
-              value={nation}
-              placeholder="국가명"
-              className="grow text-sm"
-              onChange={(e) => {
-                setNation(e.target.value);
-              }}
-            />
-          </label>
-          <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
-            금
-            <input
-              type="number"
-              value={gold}
-              className="grow text-sm"
-              onChange={(e) => setGold(Number(e.target.value))}
-            />
-          </label>
-          <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
-            은
-            <input
-              type="number"
-              value={silver}
-              className="grow text-sm"
-              onChange={(e) => setSilver(Number(e.target.value))}
-            />
-          </label>
-          <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
-            동
-            <input
-              type="number"
-              value={bronze}
-              className="grow text-sm"
-              onChange={(e) => setBronze(Number(e.target.value))}
-            />
-          </label>
-          <button
-            onClick={addNationHandler}
-            className="text-xs w-20 h-8 btn btn-neutral"
-          >
-            국가 추가
-          </button>
-          <button
-            onClick={updateCountHandler}
-            className="text-xs w-20 h-8 btn btn-neutral"
-          >
-            업데이트
-          </button>
-        </div>
-        <MedalList nations={nations} onRemoveTheCount={removeTheCountHandler} />
-      </main>
+      <div className="flex justify-center w-[90%] m-auto gap-2">
+        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+          <input
+            type="text"
+            value={nation}
+            placeholder="국가명"
+            className="grow text-sm"
+            onChange={(e) => {
+              setNation(e.target.value);
+            }}
+          />
+        </label>
+        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+          금
+          <input
+            type="number"
+            value={gold}
+            className="grow text-sm"
+            onChange={(e) => setGold(Number(e.target.value))}
+          />
+        </label>
+        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+          은
+          <input
+            type="number"
+            value={silver}
+            className="grow text-sm"
+            onChange={(e) => setSilver(Number(e.target.value))}
+          />
+        </label>
+        <label className="w-[18%] text-xs input input-bordered flex items-center gap-4">
+          동
+          <input
+            type="number"
+            value={bronze}
+            className="grow text-sm"
+            onChange={(e) => setBronze(Number(e.target.value))}
+          />
+        </label>
+        <button
+          onClick={addHandler}
+          className="text-xs w-20 h-8 btn btn-neutral"
+        >
+          국가 추가
+        </button>
+        <button
+          onClick={updateHandler}
+          className="text-xs w-20 h-8 btn btn-neutral"
+        >
+          업데이트
+        </button>
+      </div>
     </>
   );
 };
